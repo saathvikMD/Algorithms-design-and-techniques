@@ -1,0 +1,52 @@
+#Uses python3
+
+def minimum(a, b, c):
+    min = a
+    e = 1
+    if b < min:
+        min = b
+        e = 2
+    if c < min:
+        min = c
+        e = 3
+    return min, e
+
+def DP_calculator(number):
+    values = [0, 0]
+    numbers = [0, 0]
+
+    for i in range(2, number + 1):
+        o = values[i - 1] + 1
+        th = 9999999999999999999999999999999999999999999999999999999
+        tw = 9999999999999999999999999999999999999999999999999999999
+        if i % 3 == 0 and i >= 3:
+            th = values[i // 3] + 1
+        if i % 2 == 0 and i >= 2:
+            tw = values[i // 2] + 1
+
+        minv, selected = minimum(o, tw, th)
+        values.append(minv)
+        if selected == 1:
+            numbers.append(i - 1)
+        elif selected == 2:
+            numbers.append(i//2)
+        else:
+            numbers.append(i//3)
+
+    return values[number], numbers, number
+
+def solve():
+    num = int(input())
+    length, pos, number = DP_calculator(num)
+    print(length)
+    values = []
+    for i in range(length):
+        values.append(pos[num])
+        if pos[num] == 1:
+            i = length
+        num = pos[num]
+    for i in range(1, length + 1):
+        print(values[-i], end = ' ')
+    print(number)
+
+solve()
