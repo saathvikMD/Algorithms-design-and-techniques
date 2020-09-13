@@ -1,0 +1,38 @@
+#Uses python3
+
+class BinarySearch:
+    def __init__(self, data):
+        self.data = data
+
+    def find(self, low, high, key):
+        key = int(key)
+        A = self.data
+
+        if high < low:
+            return str(-1)
+
+        mid = (high - low) // 2 + low
+        if key == A[mid]:
+            return str(mid)
+        elif key < A[mid]:
+            return self.find(low, mid - 1, key)
+        else:
+            return self.find(mid+1, high, key)
+
+input1 = input()
+split1 = input1.split()
+l1 = int(split1[0])
+split1.remove(str(l1))
+split1 = list(map(int, split1))
+bs = BinarySearch(split1)
+
+input2 = input()
+finds = input2.split()
+l2 = int(finds[0])
+finds.remove(str(l2))
+split2 = list(map(int, finds))
+
+output = []
+for i in range(l2):
+    print(bs.find(0, l1-1, split2[i]),  end =" ")
+    
