@@ -1,0 +1,69 @@
+#Uses python3
+
+from math import fsum
+def create_matrix(a, b):
+    matrix = []
+    temp = []
+    for i in range(a):
+        for j in range(b):
+            temp.append('F')
+        matrix.append(temp)
+        temp = []
+    return matrix
+
+
+def subset(weights, max_length, len_w):
+    value = create_matrix(len_w + 1, max_length + 1)
+    value[0][0] = 'T'
+    for i in range(1, len_w + 1):
+        value[i][0] = 'T'
+        mi = i - 1
+        for j in range(1, max_length + 1):
+            if value[mi][j] == 'T':
+                value[i][j] = 'T'
+            elif weights[mi] <= j and value[mi][j - weights[mi]] == 'T':
+                value[i][j] = 'T'
+    if value[-1][-1] == 'F':
+        return None
+    else:
+        b = max_length
+        a = len_w
+        used = []
+        while b > 0 and a > 0:
+
+            if value[a][b] == value[a - 1][b]:
+                a -= 1
+            else:
+                b = b - weights[a - 1]
+                used.append(weights[a-1])
+        for i in range(len(used)):
+            weights.remove(used[i])
+
+    return weights
+
+def convert_int(a):
+    for i in range(len(a)):
+        a[i] = int(a[i])
+    return a
+
+
+def divide_tree_groups(weights, length):
+    sum = fsum(weights)
+    if sum % 3 != 0:
+        return 0
+    else:
+        divided = sum//3
+        for i in range(3):
+            sub = subset(weights, int(divided), length)
+            if sub == None:
+                return 0
+            else:
+                weights = sub
+                length = len(weights)
+        return 1
+
+souvenir = int(input())
+
+weights = convert_int(input().split())
+weights.sort(reverse=True)
+print(divide_tree_groups(weights, souvenir))
