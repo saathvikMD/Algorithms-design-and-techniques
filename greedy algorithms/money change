@@ -1,0 +1,12 @@
+#Uses python3
+
+def sort_coins(a, coin_order):
+    num = 0
+    for i in range(len(coin_order)):
+        num += a // coin_order[i]
+        a = a % coin_order[i]
+
+    return num
+
+a = int(input())
+print(sort_coins(a, [10, 5, 1]))
