@@ -1,0 +1,34 @@
+#Uses python3
+
+def create_matrix(a, b):
+    matrix = []
+    temp = []
+    for i in range(a):
+        for j in range(b):
+            temp.append(0)
+        matrix.append(temp)
+        temp = []
+    return matrix
+
+def knapsack(max_weight,  weight, values, length):
+    value = create_matrix(length + 1, max_weight + 1)
+    for i in range(1, length + 1):
+        wi= i-1
+        weight[wi] = int(weights[wi])
+        values[wi] = int(values[wi])
+        for w in range(1, max_weight+1):
+            value[i][w] = value[i - 1][w]
+            val = 0
+            if weight[wi] <= w:
+                val = value[i-1][w - weight[wi]] + values[wi]
+            if value[i][w] < val:
+                value[i][w] = val
+    return value[-1][-1]
+
+Format = input().split()
+max_weight = int(Format[0])
+length = int(Format[1])
+Format = input().split()
+weights = Format
+values = weights
+print(knapsack(max_weight, weights, values, length))
