@@ -1,0 +1,42 @@
+#Uses python3
+
+def rounding(i):
+    i.__round__(4)
+    return (format(i, '.4f'))
+
+def get_inputs():
+    #first input
+    a = input()
+    b = a.split()
+    #length, weight
+    nw = int(b[1])
+    length = int(b[0])
+    list = []
+    for i in range(length):
+        a = input()
+        b = a.split()
+        #value, weight
+        v = float(b[0])
+        w1 = float(b[1])
+        list.append([v/w1, v, w1])
+    #heap_sort
+    list.sort(reverse = True)
+    return list, nw, length
+
+def compute():
+    num = 0
+    w = 0
+    l = 0
+    list, nw, length = get_inputs()
+    while w < nw and l < length:
+        i = list[l]
+        if w + i[2] > nw:
+            num += i[0] * (nw-w)
+        else:
+            num += i[1]
+        w += i[2]
+        i = i[0]
+        l += 1
+    return rounding(num)
+
+print(compute())
