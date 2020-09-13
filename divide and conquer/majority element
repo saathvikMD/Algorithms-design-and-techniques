@@ -1,0 +1,49 @@
+#Uses python3
+
+from random import randint
+
+def split(A):
+    length = len(A)
+    if length >= 2:
+        pivot = randint(0, length - 1)
+        pivot_count = 0
+        smaller = []
+        greater = []
+        for i in range(length):
+            if A[i] > A[pivot]:
+                greater.append(A[i])
+            elif A[i] < A[pivot]:
+                smaller.append(A[i])
+            else:
+                pivot_count += 1
+        return smaller, greater, pivot_count
+    else:
+        return [], [], 1
+
+def majority_element(A, l):
+    if l <= 0:
+        return 0
+    length = l // 2
+    smaller, greater, pivot_count = split(A)
+    if pivot_count > length:
+        return 1
+    while (len(smaller) > length or len(greater) > length):
+        if len(smaller) > length:
+            s = smaller
+            smaller, greater, pivot_count = split(s)
+
+            if pivot_count > length:
+                return 1
+
+        if len(greater) > length:
+            g = greater
+            smaller, greater, pivot_count = split(g)
+            if pivot_count > length:
+                return 1
+
+    return 0
+
+length = int(input())
+nums = input()
+inputs = list(map(int, nums.split()))
+print(majority_element(inputs, length))
