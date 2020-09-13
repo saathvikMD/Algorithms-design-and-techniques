@@ -1,0 +1,48 @@
+#Uses python3
+class QuickSort:
+    def __init__(self, data):
+        self.A = data
+
+    def quick_sort(self, l, h):
+        if h-l < 1:
+            return
+        else:
+            min, max = self.partition(l, h)
+            self.quick_sort(l, min - 1)
+            self.quick_sort(max + 1, h)
+
+    def partition(self, l, h):
+        if h-l == 1:
+            if self.A[h] < self.A[l]:
+                self.A[h], self.A[l] = self.A[l], self.A[h]
+
+            return h, l
+        else:
+            pivot = self.A[l]
+            start = l
+            end = h
+            # front scan
+            for i in range(l, h + 1):
+                if self.A[i] < pivot:
+                    self.A[i], self.A[start] = self.A[start], self.A[i]
+                    start += 1
+
+            # back scan
+            for i in range(h, start-1, -1):
+                if self.A[i] > pivot:
+                    self.A[i], self.A[end] = self.A[end], self.A[i]
+                    end -= 1
+
+
+            return start, end
+
+
+length = int(input())
+nums = input()
+split = nums.split()
+nums = list(map(int, split))
+q = QuickSort(nums)
+q.quick_sort(0, length - 1)
+for i in range(len(q.A)):
+	print(q.A[i], end = " ")
+  
