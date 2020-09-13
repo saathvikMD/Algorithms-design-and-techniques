@@ -1,0 +1,20 @@
+# Uses python3
+
+def fibnochi(x):
+    prev_1 = 0
+    prev_2 = 0
+    if x > 1 :
+        prev_1 = 1
+        prev_2 = 1
+    if x == 1:
+        prev_1 = 1
+    for i in range(x-2):
+        prev_1, prev_2 =  prev_1 + prev_2, prev_1
+    if x == 0:
+        answer = 0
+    else:
+        answer = prev_1
+    return answer
+
+n = input()
+n = int(n)
