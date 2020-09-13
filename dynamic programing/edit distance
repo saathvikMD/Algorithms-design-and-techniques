@@ -1,0 +1,31 @@
+#Uses python3
+
+def create_matrix(a, b):
+    matrix = []
+    temp = []
+    for i in range(a):
+        for j in range(b):
+            temp.append(0)
+        matrix.append(temp)
+        temp = []
+    return matrix
+
+def distance(a, b):
+    size_a = len(a) + 1
+    size_b = len(b) + 1
+    matrix = create_matrix(size_a, size_b)
+    for i in range(size_a):
+        matrix[i][0] = i
+    for j in range(size_b):
+        matrix[0][j] = j
+    for e in range(1, size_a):
+        for k in range(1, size_b):
+            if a[e-1] == b[k-1]:
+                matrix[e][k] = min(matrix[e - 1][k] + 1,matrix[e - 1][k - 1],matrix[e][k - 1] + 1)
+            else:
+                matrix[e][k] = min(matrix[e - 1][k] + 1,matrix[e - 1][k - 1] + 1,matrix[e][k - 1] + 1)
+    return matrix[size_a - 1][size_b - 1]
+
+s1 = input()
+s2 = input()
+print(distance(s1, s2))
