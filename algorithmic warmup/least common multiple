@@ -1,0 +1,20 @@
+# Uses python3
+
+def gcd(a, b):
+    d = min(a,b)
+    c = max(a,b)
+    while (c % d ) != 0:
+        min1 = d
+        d = c % d
+        c = min1
+        
+    return d
+ 
+def lcm(a, b):
+    awnser = (a*b)//gcd(a, b)
+    return int(awnser)
+
+n = input()
+token = n.split()
+
+print(lcm(int(token[0]), int(token[1])))
