@@ -1,0 +1,24 @@
+#Uses python3
+
+def sort(list):
+    list.sort(reverse = True)
+    return list
+
+def pair(list1 ,list2, length):
+    list1 = sort(list1)
+    list2 = sort(list2)
+    value = 0
+    for i in range(length):
+        value += list1[i] * list2[i]
+    return value
+
+length = int(input())
+temp = input()
+adds = temp.split()
+temp = input()
+loc = temp.split()
+for i in range(length):
+    adds[i] = int(adds[i])
+    loc[i] = int(loc[i])
+
+print(pair(adds, loc, length))
