@@ -1,0 +1,25 @@
+#Uses python3
+
+def Fibonochi(n):
+    prev1 = 1
+    prev2 = 0
+    if n == 0:
+        return prev2
+    elif n == 1:
+        return  prev1
+    else:
+        reminder = n % 60
+
+        if reminder == 0:
+            return 0
+
+        else:
+            for i in range(2, reminder + 3):
+                prev1, prev2 = (prev1 + prev2) % 60, prev1
+            return prev1 - 1
+
+n = input().split()
+n2 = int(n[0])
+n1 = int(n[1])
+solution = (Fibonochi(n1) - Fibonochi(n2 - 1)) % 10
+print(solution)
